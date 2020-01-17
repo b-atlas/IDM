@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated qcm -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="qcm.presentation.QcmModelWizardID"
+            name="%_UI_QcmModelWizard_label"
+            class="qcm.presentation.QcmModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/QcmModelFile.gif">
+         <description>%_UI_QcmModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated qcm -->
+      <editor
+            id="qcm.presentation.QcmEditorID"
+            name="%_UI_QcmEditor_label"
+            icon="icons/full/obj16/QcmModelFile.gif"
+            extensions="qcm"
+            class="qcm.presentation.QcmEditor"
+            contributorClass="qcm.presentation.QcmActionBarContributor">
+      </editor>
+   </extension>
+
+</plugin>

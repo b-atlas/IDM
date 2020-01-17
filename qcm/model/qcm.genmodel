@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel"
+    modelDirectory="/qcm/src-gen" creationIcons="false" editDirectory="/qcm.edit/src-gen"
+    editorDirectory="/qcm.editor/src-gen" modelPluginID="qcm" modelName="Qcm" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    codeFormatting="true" importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0"
+    copyrightFields="false" operationReflection="true" importOrganizing="true">
+  <foreignModel>qcm.ecore</foreignModel>
+  <testsDirectory xsi:nil="true"/>
+  <genPackages prefix="Qcm" disposableProviderFactory="true" ecorePackage="qcm.ecore#/">
+    <genClasses ecoreClass="qcm.ecore#//Qcm">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute qcm.ecore#//Qcm/domaine"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference qcm.ecore#//Qcm/question"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute qcm.ecore#//Qcm/mode"/>
+    </genClasses>
+    <genClasses ecoreClass="qcm.ecore#//Question">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute qcm.ecore#//Question/data"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference qcm.ecore#//Question/reponse"/>
+    </genClasses>
+    <genClasses ecoreClass="qcm.ecore#//Reponse">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute qcm.ecore#//Reponse/data"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute qcm.ecore#//Reponse/valeur"/>
+    </genClasses>
+    <genClasses ecoreClass="qcm.ecore#//Programme">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference qcm.ecore#//Programme/qcm"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute qcm.ecore#//Programme/appType"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>
