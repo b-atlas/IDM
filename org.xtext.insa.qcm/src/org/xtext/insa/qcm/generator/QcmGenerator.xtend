@@ -9,6 +9,8 @@ import org.eclipse.xtext.generator.IFileSystemAccess2
 import org.eclipse.xtext.generator.IGeneratorContext
 import qcm.Programme
 import qcm.Qcm
+import qcm.Question
+import qcm.Reponse
 
 /**
  * Generates code from your model files on save.
@@ -23,55 +25,45 @@ class QcmGenerator extends AbstractGenerator {
 //				.filter(Greeting)
 //				.map[name]
 //				.join(', '))
-		val htmlProvider = new HtmlProvider()
-		var domaines = ''
-		
 		val programme = resource.allContents.toIterable.filter(typeof(Programme)).head
 		val appType = programme.appType;
 
 		if (appType.equals("Android")) {
 			// generate the android app
-			
-			
-			
 		} else {
-			// generate the web app
-			
-			// récupérer les domaines
-			for(Qcm itr : resource.allContents.toIterable.filter(typeof(Qcm))) {
-				domaines += '<option>' + itr.domaine + '</option>'
-			}
-			
-			// générer la page home
-			fsa.generateFile("home.html", '''«htmlProvider.getHome(domaines)»''')
-			
-			var domaine = 'Big data'
-			var mode = 'Examen'
-			var qcmHtml = ''
-			var reponsesHtml = ''
-			
-			// récupérer le html du qcm concerné pour la page qcm
-			for(Qcm itr : resource.allContents.toIterable.filter(typeof(Qcm))) {
-				if(itr.domaine.equals(domaine) && itr.mode.equals(mode)) {
-					qcmHtml = htmlProvider.getQcm(itr)
+
+			var fileString = ''
+
+			// generate the properties file
+			val numberQcm = resource.allContents.toIterable.filter(typeof(Qcm)).size()
+
+			fileString += 'number=' + numberQcm + '\n'
+
+			var i = 0
+
+			for (q : resource.allContents.toIterable.filter(typeof(Qcm))) {
+				fileString += 'domaine' + i + '=' + q.domaine + '\n'
+				fileString += 'mode' + i + '=' + q.mode + '\n'
+
+				var j = 0
+				for (question : q.eAllContents().toIterable.filter(typeof(Question))) {
+
+					fileString += 'question_data' + i + j + '=' + question.data + '\n'
+
+					var k = 0
+					for (reponse : question.eAllContents().toIterable.filter(typeof(Reponse))) {
+						fileString += 'reponse_data' + i + j + k + '=' + reponse.data + '\n'
+						fileString += 'reponse_value' + i + j + k + '=' + reponse.valeur + '\n'
+						k++
+					}
+
+					j++
 				}
+
+				i++
 			}
-			
-			// générer la page qcm
-			fsa.generateFile("qcm.html", '''«qcmHtml»''')
-			
-			// récupérer le html concerné pour la page réponse
-			for(Qcm itr : resource.allContents.toIterable.filter(typeof(Qcm))) {
-				if(itr.domaine.equals(domaine) && itr.mode.equals(mode)) {
-					reponsesHtml = htmlProvider.getReponses(itr)
-				}
-			}
-			
-			// générer la page réponses
-			fsa.generateFile("reponses.html", '''«reponsesHtml»''')
-			
-			// générer la page du fin
-			fsa.generateFile("fin.html", '''«htmlProvider.getFin(true)»''') 
+
+			fsa.generateFile("data.properties", '''«fileString»''')
 
 		}
 	}
