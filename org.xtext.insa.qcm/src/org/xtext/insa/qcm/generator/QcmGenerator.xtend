@@ -44,14 +44,15 @@ class QcmGenerator extends AbstractGenerator {
 			for (q : resource.allContents.toIterable.filter(typeof(Qcm))) {
 				fileString += 'domaine' + i + '=' + q.domaine + '\n'
 				fileString += 'mode' + i + '=' + q.mode + '\n'
-
+				fileString += 'num_questions' + i + '=' + q.question.size() + '\n'
+				
 				var j = 0
-				for (question : q.eAllContents().toIterable.filter(typeof(Question))) {
-
+				for (question : q.question) {
+					
 					fileString += 'question_data' + i + j + '=' + question.data + '\n'
-
+					fileString += 'num_reponses' + i + j + '=' + question.reponse.size() + '\n'
 					var k = 0
-					for (reponse : question.eAllContents().toIterable.filter(typeof(Reponse))) {
+					for (reponse : question.reponse) {
 						fileString += 'reponse_data' + i + j + k + '=' + reponse.data + '\n'
 						fileString += 'reponse_value' + i + j + k + '=' + reponse.valeur + '\n'
 						k++
